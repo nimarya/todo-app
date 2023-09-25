@@ -26,7 +26,7 @@
         }
 
         .delete-button {
-            padding: 2px;
+            padding: 0;
             float: right;
             margin-right: 50px;
         }
@@ -38,13 +38,17 @@
         hr {
             margin-top: 30px;
         }
+
+        .todo-item {
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>To do app</h2>
         <form action="#">
-            <input style="width: 300px; padding: 5px;" type="text" value="what do you need to do?" id="textarea">
+            <input style="width: 300px; padding: 5px;" type="text" id="textarea">
             <span><button class="add-button">add</button></span>
         </form>
 
@@ -65,28 +69,48 @@
 
         <hr>
 
-        <h4><span id="items-remaining">3</span> items remaining</h4>
+        <h4><span id="items-remaining">1</span> items remaining</h4>
     </div>
 
     <script>
         const addButton = document.querySelector('.add-button');
+        const deleteButton = document.querySelector('.delete-button');
         const textarea = document.querySelector('#textarea');
         const todoItem = document.querySelector('.todo-item');
         const ul = document.querySelector('.ul-checkbox');
+        const itemsRemainingElement = document.querySelector('#items-remaining');
+        let itemsRemaining = 1;
 
-        console.log(todoItem);
         
-        function addNewTodo(todo) {
+        function deleteItem(event) {
+            event.currentTarget.parentElement.remove();
+            itemsRemaining--;
+            itemsRemainingElement.textContent = itemsRemaining;
+        }
+        
+        function addItem() {
+            const todo = textarea.value;
             const newItem = todoItem.cloneNode(true);
             newItem.firstElementChild.nextElementSibling.textContent = todo;
             
             ul.insertAdjacentElement('afterbegin', newItem);
+            
+            newItem.lastElementChild.addEventListener('click', deleteItem);
+            
+            textarea.value = '';
+            itemsRemaining++;
+            itemsRemainingElement.textContent = itemsRemaining;
         }
         
-        addButton.addEventListener('click', function() {
-            const todo = textarea.value;
-            addNewTodo(todo);
-        })
+        deleteButton.addEventListener('click', deleteItem);
+        addButton.addEventListener('click', addItem);
+        
+        // let deleteButtons = document.querySelectorAll('.delete-button');
+        // deleteButtons.forEach(deleteButton => {
+        //     deleteButton.addEventListener('click', function(event) {
+        //         console.log(event);
+        //     });
+        // })
     </script>
 </body>
 </html>
