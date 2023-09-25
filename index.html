@@ -4,8 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo-app</title>
+
+    <style>
+        body {
+            background-color: #ebebeb;
+        }
+        .container {
+            max-width: 500px;
+            text-align: center;
+            margin: auto;
+            margin-top: 50px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 20px;
+        }
+
+        .ul-checkbox {
+            list-style-type: none; /* Remove bullets */
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .close-button {
+            align-self: right;
+        }
+    </style>
 </head>
 <body>
-    <h2>To do app</h2>
+    <div class="container">
+        <h2>To do app</h2>
+        <form action="#">
+            <input style="width: 300px; padding: 5px;" type="text" value="what do you need to do?">
+        </form>
+        <ul class="ul-checkbox">
+            <li><input type="checkbox">
+                My first task!
+                <button class="close-button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+        <ul class="ul-checkbox">
+            <li><input type="checkbox">
+                My first task!
+                <button class="close-button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+        <hr>
+        <h4>3 items remaining</h4>
+    </div>
 </body>
 </html>
