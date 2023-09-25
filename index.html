@@ -25,8 +25,18 @@
             margin-top: 20px;
         }
 
-        .close-button {
-            align-self: right;
+        .delete-button {
+            padding: 2px;
+            float: right;
+            margin-right: 50px;
+        }
+
+        .add-button {
+            padding: 5px;
+        }
+
+        hr {
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -35,24 +45,35 @@
         <h2>To do app</h2>
         <form action="#">
             <input style="width: 300px; padding: 5px;" type="text" value="what do you need to do?">
+            <span><button class="add-button">add</button></span>
         </form>
+
         <ul class="ul-checkbox">
-            <li><input type="checkbox">
+            <li>
+                <input type="checkbox">
+
                 My first task!
-                <button class="close-button">
-                    <span aria-hidden="true">&times;</span>
+
+                <button class="delete-button">
+                    <span>&#215;</span>
                 </button>
             </li>
         </ul>
+
         <ul class="ul-checkbox">
-            <li><input type="checkbox">
+            <li>
+                <input type="checkbox">
+
                 My first task!
-                <button class="close-button">
-                    <span aria-hidden="true">&times;</span>
+
+                <button class="delete-button">
+                    <span>&#215;</span>
                 </button>
             </li>
         </ul>
+
         <hr>
+
         <h4>3 items remaining</h4>
     </div>
 </body>
