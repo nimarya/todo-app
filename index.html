@@ -44,12 +44,12 @@
     <div class="container">
         <h2>To do app</h2>
         <form action="#">
-            <input style="width: 300px; padding: 5px;" type="text" value="what do you need to do?">
+            <input style="width: 300px; padding: 5px;" type="text" value="what do you need to do?" id="textarea">
             <span><button class="add-button">add</button></span>
         </form>
 
         <ul class="ul-checkbox">
-            <li>
+            <li class="todo-item">
                 <input type="checkbox">
 
                 My first task!
@@ -58,23 +58,35 @@
                     <span>&#215;</span>
                 </button>
             </li>
-        </ul>
-
-        <ul class="ul-checkbox">
-            <li>
-                <input type="checkbox">
-
-                My first task!
-
-                <button class="delete-button">
-                    <span>&#215;</span>
-                </button>
-            </li>
+            
         </ul>
 
         <hr>
 
-        <h4>3 items remaining</h4>
+        <h4><span id="items-remaining">3</span> items remaining</h4>
     </div>
+
+    <script>
+        const addButton = document.querySelector('.add-button');
+        const textarea = document.querySelector('#textarea');
+        const todoItem = document.querySelector('.todo-item');
+        const ul = document.querySelector('.ul-checkbox');
+
+        console.log(todoItem);
+        
+        function addNewTodo(todo) {
+            console.log(todoItem);
+            const newItem = todoItem.cloneNode(true);
+            console.log(newItem);
+
+            newItem.textContent = todo;
+            ul.insertAdjacentElement('afterbegin', newItem);
+        }
+        
+        addButton.addEventListener('click', function() {
+            const todo = textarea.value;
+            addNewTodo(todo);
+        })
+    </script>
 </body>
 </html>
