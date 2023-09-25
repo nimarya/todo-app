@@ -52,7 +52,9 @@
             <li class="todo-item">
                 <input type="checkbox">
 
-                My first task!
+                <span class="todo-text">
+                    My first task!
+                </span>
 
                 <button class="delete-button">
                     <span>&#215;</span>
@@ -75,11 +77,9 @@
         console.log(todoItem);
         
         function addNewTodo(todo) {
-            console.log(todoItem);
             const newItem = todoItem.cloneNode(true);
-            console.log(newItem);
-
-            newItem.textContent = todo;
+            newItem.firstElementChild.nextElementSibling.textContent = todo;
+            
             ul.insertAdjacentElement('afterbegin', newItem);
         }
         
