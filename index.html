@@ -54,7 +54,7 @@
 
         <ul class="ul-checkbox">
             <li class="todo-item">
-                <input type="checkbox">
+                <input type="checkbox" class="checkbox" name="checkbox">
 
                 <span class="todo-text">
                     My first task!
@@ -79,12 +79,25 @@
         const todoItem = document.querySelector('.todo-item');
         const ul = document.querySelector('.ul-checkbox');
         const itemsRemainingElement = document.querySelector('#items-remaining');
+        const checkbox = document.querySelector('.checkbox');
+
         let itemsRemaining = 1;
 
         
         function deleteItem(event) {
             event.currentTarget.parentElement.remove();
             itemsRemaining--;
+            itemsRemainingElement.textContent = itemsRemaining;
+        }
+
+        function completeTask(event) {
+            if (event.currentTarget.checked) {
+                ul.append(event.currentTarget.parentElement);
+                itemsRemaining--;
+            } else {
+                ul.prepend(event.currentTarget.parentElement);
+                itemsRemaining++;
+            }
             itemsRemainingElement.textContent = itemsRemaining;
         }
         
@@ -96,6 +109,7 @@
             ul.insertAdjacentElement('afterbegin', newItem);
             
             newItem.lastElementChild.addEventListener('click', deleteItem);
+            newItem.firstElementChild.addEventListener('input', completeTask);
             
             textarea.value = '';
             itemsRemaining++;
@@ -103,14 +117,9 @@
         }
         
         deleteButton.addEventListener('click', deleteItem);
+        checkbox.addEventListener('input', completeTask);
         addButton.addEventListener('click', addItem);
         
-        // let deleteButtons = document.querySelectorAll('.delete-button');
-        // deleteButtons.forEach(deleteButton => {
-        //     deleteButton.addEventListener('click', function(event) {
-        //         console.log(event);
-        //     });
-        // })
     </script>
 </body>
 </html>
