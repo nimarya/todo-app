@@ -86,8 +86,11 @@
         
         function deleteItem(event) {
             event.currentTarget.parentElement.remove();
-            itemsRemaining--;
-            itemsRemainingElement.textContent = itemsRemaining;
+            
+            if (!event.currentTarget.parentElement.firstElementChild.checked) {
+                itemsRemaining--;
+                itemsRemainingElement.textContent = itemsRemaining;
+            }
         }
 
         function completeTask(event) {
@@ -105,6 +108,7 @@
             const todo = textarea.value;
             const newItem = todoItem.cloneNode(true);
             newItem.firstElementChild.nextElementSibling.textContent = todo;
+            newItem.firstElementChild.checked = false;
             
             ul.insertAdjacentElement('afterbegin', newItem);
             
