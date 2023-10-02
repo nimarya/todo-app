@@ -105,9 +105,8 @@
         }
         
         function addItem() {
-            const todo = textarea.value;
             const newItem = todoItem.cloneNode(true);
-            newItem.firstElementChild.nextElementSibling.textContent = todo;
+            newItem.firstElementChild.nextElementSibling.textContent = textarea.value;
             newItem.firstElementChild.checked = false;
             
             ul.insertAdjacentElement('afterbegin', newItem);
