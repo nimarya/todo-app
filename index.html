@@ -73,55 +73,62 @@
     </div>
 
     <script>
-        const addButton = document.querySelector('.add-button');
-        const deleteButton = document.querySelector('.delete-button');
-        const textarea = document.querySelector('#textarea');
-        const todoItem = document.querySelector('.todo-item');
-        const ul = document.querySelector('.ul-checkbox');
-        const itemsRemainingElement = document.querySelector('#items-remaining');
-        const checkbox = document.querySelector('.checkbox');
 
-        let itemsRemaining = 1;
-
-        
-        function deleteItem(event) {
-            event.currentTarget.parentElement.remove();
+        const todoApp = {
+            init() {
+                this.cacheDomElements();
+                this.createEventListeners();
+            },
+            cacheDomElements() {
+                this.addButton = document.querySelector('.add-button');
+                this.deleteButton = document.querySelector('.delete-button');
+                this.textarea = document.querySelector('#textarea');
+                this.todoItem = document.querySelector('.todo-item');
+                this.ul = document.querySelector('.ul-checkbox');
+                this.itemsRemainingElement = document.querySelector('#items-remaining');
+                this.checkbox = document.querySelector('.checkbox');
+                this.itemsRemaining = 1;
+            },
+            deleteItem(event) {
+                event.currentTarget.parentElement.remove();
             
-            if (!event.currentTarget.parentElement.firstElementChild.checked) {
-                itemsRemaining--;
-                itemsRemainingElement.textContent = itemsRemaining;
+                if (!event.currentTarget.parentElement.firstElementChild.checked) {
+                    this.itemsRemaining--;
+                    this.itemsRemainingElement.textContent = this.itemsRemaining;
+                }
+            },
+            completeTask(event) {
+                if (event.currentTarget.checked) {
+                    this.ul.append(event.currentTarget.parentElement);
+                    this.itemsRemaining--;
+                } else {
+                    this.ul.prepend(event.currentTarget.parentElement);
+                    this.itemsRemaining++;
+                }
+                this.itemsRemainingElement.textContent = this.itemsRemaining;
+            },
+            addItem() {
+                const newItem = this.todoItem.cloneNode(true);
+                newItem.firstElementChild.nextElementSibling.textContent = this.textarea.value;
+                newItem.firstElementChild.checked = false;
+                
+                this.ul.insertAdjacentElement('afterbegin', newItem);
+                
+                newItem.lastElementChild.addEventListener('click', this.deleteItem.bind(this));
+                newItem.firstElementChild.addEventListener('input', this.completeTask.bind(this));
+                
+                this.textarea.value = '';
+                this.itemsRemaining++;
+                this.itemsRemainingElement.textContent = this.itemsRemaining;
+            },
+            createEventListeners() {
+                this.deleteButton.addEventListener('click', this.deleteItem.bind(this));
+                this.checkbox.addEventListener('input', this.completeTask.bind(this));
+                this.addButton.addEventListener('click', this.addItem.bind(this));
             }
-        }
+        };
 
-        function completeTask(event) {
-            if (event.currentTarget.checked) {
-                ul.append(event.currentTarget.parentElement);
-                itemsRemaining--;
-            } else {
-                ul.prepend(event.currentTarget.parentElement);
-                itemsRemaining++;
-            }
-            itemsRemainingElement.textContent = itemsRemaining;
-        }
-        
-        function addItem() {
-            const newItem = todoItem.cloneNode(true);
-            newItem.firstElementChild.nextElementSibling.textContent = textarea.value;
-            newItem.firstElementChild.checked = false;
-            
-            ul.insertAdjacentElement('afterbegin', newItem);
-            
-            newItem.lastElementChild.addEventListener('click', deleteItem);
-            newItem.firstElementChild.addEventListener('input', completeTask);
-            
-            textarea.value = '';
-            itemsRemaining++;
-            itemsRemainingElement.textContent = itemsRemaining;
-        }
-        
-        deleteButton.addEventListener('click', deleteItem);
-        checkbox.addEventListener('input', completeTask);
-        addButton.addEventListener('click', addItem);
+        todoApp.init();
         
     </script>
 </body>
